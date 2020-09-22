@@ -1,16 +1,15 @@
 #include <Servo.h> 
-Servo servoHorizontal;
+Servo horizontalServo;
 
-int servoH = 90;
-int servoHLimitHigh = 180;
-int servoHLimitLow = 0;
+int servoh = 90;
+int servohLimitHigh = 180;
+int servohLimitLow = 0;
 int tolerance = 10;
 
-void setup()
-{
+void setup(){
 Serial.begin(9600);
-servoHorizontal.attach(7);
-servoHorizontal.write(180);
+horizontalServo.attach(7);
+horizontalServo.write(180);
 delay(3000);
 }
 
@@ -22,15 +21,15 @@ void loop()
   
   if ( diffHorizontal <-1*tolerance || diffHorizontal > tolerance){ //check if the difference is tolerable else rotate the motor
     if (ldrLeft > ldrRight){
-      servoH = servoH + 2;
-      if (servoH > servoHLimitHigh){servoH = servoHLimitHigh;}
+      servoh = servoh+2;
+      if (servoh > servohLimitHigh){servoh = servohLimitHigh;}
     } else if (ldrLeft < ldrRight){
-      servoH = servoH-2;
-      if (servoH_value < servohLimitLow){servoH_value = servoHLimitLow;}
+      servoh = servoh-2;
+      if (servoh < servohLimitLow){servoh = servohLimitLow;}
     } else if (ldrLeft = ldrRight){
     // nothing
     }
-  } 
-  servoHorizontal.write(servoH_value);
+  }
+    horizontalServo.write(servoh);
   delay(10);
 }
